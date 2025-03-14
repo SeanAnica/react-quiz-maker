@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router'; // ✅ Correction
+import { createBrowserRouter } from 'react-router'; // 🛣️ utilisation de React-Router pour la gestion des routes.
 import Home from './pages/Home';
 import QuizzResult from './pages/QuizzResult';
 import NotFound from './pages/NotFound';
