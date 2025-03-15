@@ -5,18 +5,20 @@ import { getTriviaCategories } from '../services/triviaCategoryService';
 import { getDifficultyLevels } from '../services/difficultyLevelsService';
 import Quiz from '../components/Quiz';
 import { getQuestions } from '../services/quizQuestionsService';
-import { Question } from '../interfaces/Question';
+import { useQuiz } from '../context/QuizContext';
+import { ShuffledQuestionType } from '../types/ShuffledQuestionsType';
+
+const shuffleArray = <T,>(array: T[]): T[] => [...array].sort(() => Math.random() - 0.5);
 
 const Home = () => {
+  const { setQuestions } = useQuiz();
   const [triviaCategories, setTriviaCategories] = useState<TriviaCategory[]>([]);
   const [difficultyLevels, setDifficultyLevels] = useState<DifficultyLevel[]>([]);
-
   const [selectedTriviaCategory, setSelectedTriviaCategory] = useState<TriviaCategory | null>(null);
   const [selectedDifficultyLevel, setSelectedDifficultyLevel] = useState<DifficultyLevel | null>(
     null,
   );
 
-  const [questions, setQuestions] = useState<Question[]>([]);
   const [showQuiz, setShowQuiz] = useState<boolean>(false);
 
   useEffect(() => {
@@ -30,11 +32,8 @@ const Home = () => {
       });
 
     // liste des niveaux de difficulté
-    const getDifficulties = () => {
-      const levels = getDifficultyLevels();
-      setDifficultyLevels(levels);
-    };
-    getDifficulties();
+    const levels = getDifficultyLevels();
+    setDifficultyLevels(levels);
   }, []);
 
   const handleTriviaCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -54,14 +53,17 @@ const Home = () => {
       // Charger les questions
       getQuestions(selectedTriviaCategory.id, selectedDifficultyLevel.code)
         .then((data) => {
-          setQuestions(data);
+          // On ajoute la liste de réponses mélangées.
+          const shuffledQuestions: ShuffledQuestionType[] = data.map((q) => ({
+            ...q,
+            allAnswers: shuffleArray([...q.incorrect_answers, q.correct_answer]),
+          }));
+          setQuestions(shuffledQuestions);
           setShowQuiz(true);
         })
-        .catch((err) => {
-          console.error(err);
-        });
+        .catch((err) => console.error(err));
     } else {
-      alert('Please select both a category and a difficulty level.');
+      console.error('Please select both a category and a difficulty level.');
     }
   };
 
@@ -102,7 +104,7 @@ const Home = () => {
             Create
           </button>
         </div>
-        {showQuiz && <Quiz questions={questions} />}
+        {showQuiz && <Quiz />}
       </div>
     </div>
   );
