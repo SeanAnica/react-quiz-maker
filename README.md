@@ -1,4 +1,4 @@
-# react-quiz-maker project from React certification level 2
+# react-quiz-maker project for React certification level 2
 
 An app that allows you to create quiz based off your chosen category and your chosen difficulty level.
 
