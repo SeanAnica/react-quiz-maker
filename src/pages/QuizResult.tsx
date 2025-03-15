@@ -1,23 +1,22 @@
 import { Link, useLocation } from 'react-router';
 import Question from '../components/Question';
-import { Question as QuestionType } from '../interfaces/Question';
 import NotFound from './NotFound';
+import { ShuffledQuestion } from '../components/Quiz';
 
 type LocationState = {
-  questions: QuestionType[];
+  questions: ShuffledQuestion[];
   userAnswers: Record<number, string>;
-  shuffledAnswers: string[][];
 };
 
 const QuizResult = () => {
   const location = useLocation();
   const state = location.state as LocationState | null;
 
-  if (!state || !state.questions || !state.userAnswers || !state.shuffledAnswers) {
+  if (!state || !state.questions || !state.userAnswers) {
     return <NotFound message="You did not submit any quiz answers!" title="Error" />;
   }
 
-  const { questions, userAnswers, shuffledAnswers } = state;
+  const { questions, userAnswers } = state;
 
   const score = questions.reduce((acc, question, index) => {
     return acc + (userAnswers[index] === question.correct_answer ? 1 : 0);
@@ -25,15 +24,15 @@ const QuizResult = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="flex flex-col items-center justify-center gap-5">
+      <div className="flex flex-col items-center justify-center gap-2 pb-5">
         <h1 className="text-6xl font-bold text-blue-500">Quiz Maker</h1>
         <h2 className="text-4xl font-bold text-blue-400">Results</h2>
         <div className="flex flex-col gap-5 py-10">
-          {questions.map((q: QuestionType, index: number) => (
+          {questions.map((q: ShuffledQuestion, index: number) => (
             <Question
               key={index}
               question={q.question}
-              answers={shuffledAnswers[index] || []}
+              answers={q.allAnswers}
               onAnswerSelect={() => {}}
               selectedAnswer={userAnswers[index] || null}
               displayResults={true}
