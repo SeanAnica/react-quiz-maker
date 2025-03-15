@@ -6,8 +6,8 @@ import { DifficultyLevel } from '../interfaces/DifficultyLevel';
  */
 export const getDifficultyLevels = (): DifficultyLevel[] => {
   return [
-    { code: 'EASY', label: 'Easy' },
-    { code: 'MEDIUM', label: 'Medium' },
-    { code: 'HARD', label: 'Hard' },
+    { code: 'easy', label: 'Easy' },
+    { code: 'medium', label: 'Medium' },
+    { code: 'hard', label: 'Hard' },
   ];
 };

@@ -16,7 +16,7 @@ export const getTriviaCategories = async (): Promise<TriviaCategory[]> => {
     const categories: TriviaCategories = await apiResponse.json();
     return categories.trivia_categories;
   } catch (error: unknown) {
-    console.log('erreur : ' + JSON.stringify(error));
-    throw new Error('Impossible de récupérer les Trivia categories');
+    console.log('error : ' + JSON.stringify(error));
+    throw new Error('Unable to retrieve the Trivia categories.');
   }
 };

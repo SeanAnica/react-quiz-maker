@@ -1,13 +1,13 @@
 import { createBrowserRouter } from 'react-router'; // 🛣️ utilisation de React-Router pour la gestion des routes.
 import Home from './pages/Home';
-import QuizzResult from './pages/QuizzResult';
+import QuizResult from './pages/QuizResult';
 import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter(
   [
     {
-      path: '/quizz-result',
-      Component: QuizzResult,
+      path: '/quiz-result',
+      Component: QuizResult,
     },
     {
       path: '/',
