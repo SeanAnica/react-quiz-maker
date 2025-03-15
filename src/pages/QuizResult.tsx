@@ -6,17 +6,18 @@ import NotFound from './NotFound';
 type LocationState = {
   questions: QuestionType[];
   userAnswers: Record<number, string>;
+  shuffledAnswers: string[][];
 };
 
 const QuizResult = () => {
   const location = useLocation();
   const state = location.state as LocationState | null;
 
-  if (!state || !state.questions || !state.userAnswers) {
-    return <NotFound message="You did not submit any quiz answers !" title="Error" />;
+  if (!state || !state.questions || !state.userAnswers || !state.shuffledAnswers) {
+    return <NotFound message="You did not submit any quiz answers!" title="Error" />;
   }
 
-  const { questions, userAnswers } = state;
+  const { questions, userAnswers, shuffledAnswers } = state;
 
   const score = questions.reduce((acc, question, index) => {
     return acc + (userAnswers[index] === question.correct_answer ? 1 : 0);
@@ -32,7 +33,7 @@ const QuizResult = () => {
             <Question
               key={index}
               question={q.question}
-              answers={[...q.incorrect_answers, q.correct_answer]}
+              answers={shuffledAnswers[index] || []}
               onAnswerSelect={() => {}}
               selectedAnswer={userAnswers[index] || null}
               displayResults={true}
