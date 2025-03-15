@@ -1,5 +1,5 @@
 export type NotFoundProps = {
-  message: string;
+  message?: string;
   title?: string;
 };
 
