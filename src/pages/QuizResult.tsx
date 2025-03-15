@@ -11,7 +11,7 @@ const QuizResult = () => {
     return <NotFound message="You did not submit any quiz answers!" title="Error" />;
   }
 
-  const score = questions.reduce(
+  const score: number = questions.reduce(
     (acc, question, index) => acc + (userAnswers[index] === question.correct_answer ? 1 : 0),
     0,
   );

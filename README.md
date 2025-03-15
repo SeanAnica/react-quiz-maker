@@ -1,3 +1,11 @@
+# react-quiz-maker project from React certification level 2
+
+An app that allows you to create quiz based off your chosen category and your chosen difficulty level.
+
+- install dependencies : `npm i`
+- run app : `npm run dev`
+- if there is a problem on run, i advise you to delete `node_modules` directory and `package-lock.json` file, then `npm i` again.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
