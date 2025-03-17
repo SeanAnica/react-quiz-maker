@@ -20,6 +20,10 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      '@typescript-eslint/no-explicit-any': 'error', // Erreur en cas de any
+      '@typescript-eslint/explicit-module-boundary-types': 'warn', // warning si le type de retour n'est pas là
+      '@typescript-eslint/explicit-function-return-type': 'warn', // warning pour avoir un type de retour explicite
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'], // Favoriser les types aux interfaces
     },
   },
 );
