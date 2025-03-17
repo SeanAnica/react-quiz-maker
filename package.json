@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://seananica.github.io/react-quiz-maker/",
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && copy dist\\index.html dist\\404.html",
     "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "tsc -b && vite build",
