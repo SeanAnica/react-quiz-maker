@@ -1,8 +1,8 @@
-import { Question } from '../interfaces/Question';
+import { QuestionType } from '../types/QuestionType';
 
 export type QuestionsApiResponse = {
   response_code: number;
-  results: Question[];
+  results: QuestionType[];
 };
 
 const QUIZ_API_URL_BASE = 'https://opentdb.com/api.php';
@@ -18,7 +18,7 @@ export const getQuestions = async (
   categoryId: number,
   difficulty: string,
   amount: number = 5,
-): Promise<Question[]> => {
+): Promise<QuestionType[]> => {
   const url: string = `${QUIZ_API_URL_BASE}?amount=${amount}&category=${categoryId}&difficulty=${difficulty}&type=multiple`;
   try {
     const apiResponse = await fetch(url);

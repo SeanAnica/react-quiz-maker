@@ -1,7 +1,8 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { JSX, ReactNode, useState } from 'react';
 import { ShuffledQuestionType } from '../types/ShuffledQuestionsType';
+import { QuizContext } from '../hooks/useQuiz';
 
-type QuizContextType = {
+export type QuizContextType = {
   questions: ShuffledQuestionType[];
   setQuestions: (questions: ShuffledQuestionType[]) => void;
   userAnswers: Record<number, string>;
@@ -9,21 +10,19 @@ type QuizContextType = {
   resetQuiz: () => void;
 };
 
-const QuizContext = createContext<QuizContextType | undefined>(undefined);
-
 export type QuizProviderProps = {
   children: ReactNode;
 };
 
-export const QuizProvider = ({ children }: QuizProviderProps) => {
+export const QuizProvider = ({ children }: QuizProviderProps): JSX.Element => {
   const [questions, setQuestions] = useState<ShuffledQuestionType[]>([]);
   const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
 
-  const setUserAnswer = (questionIndex: number, answer: string) => {
+  const setUserAnswer = (questionIndex: number, answer: string): void => {
     setUserAnswers((prev) => ({ ...prev, [questionIndex]: answer }));
   };
 
-  const resetQuiz = () => {
+  const resetQuiz = (): void => {
     setQuestions([]);
     setUserAnswers({});
   };
@@ -35,12 +34,4 @@ export const QuizProvider = ({ children }: QuizProviderProps) => {
       {children}
     </QuizContext.Provider>
   );
-};
-
-export const useQuiz = () => {
-  const context = useContext(QuizContext);
-  if (!context) {
-    throw new Error('No context found : useQuiz must be used within a QuizProvider');
-  }
-  return context;
 };

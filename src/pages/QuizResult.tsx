@@ -1,10 +1,11 @@
 import { Link } from 'react-router';
 import Question from '../components/Question';
 import NotFound from './NotFound';
-import { useQuiz } from '../context/QuizContext';
 import { ShuffledQuestionType } from '../types/ShuffledQuestionsType';
+import { JSX } from 'react';
+import { useQuiz } from '../hooks/useQuiz';
 
-const QuizResult = () => {
+const QuizResult = (): JSX.Element => {
   const { questions, userAnswers, resetQuiz } = useQuiz();
 
   if (questions.length === 0) {

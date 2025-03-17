@@ -1,11 +1,11 @@
 /**
- * interface Question qui représente une question du quiz.
+ * Type QuestionType qui représente une question du quiz.
  */
-export interface Question {
+export type QuestionType = {
   type: string;
   difficulty: string;
   category: string;
   question: string;
   correct_answer: string;
   incorrect_answers: string[];
-}
+};

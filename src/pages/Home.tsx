@@ -1,23 +1,24 @@
-import { useEffect, useState } from 'react';
-import { TriviaCategory } from '../interfaces/TriviaCategory';
-import { DifficultyLevel } from '../interfaces/DifficultyLevel';
+import { JSX, useEffect, useState } from 'react';
+import { TriviaCategoryType } from '../types/TriviaCategoryType';
+import { DifficultyLevelType } from '../types/DifficultyLevelType';
 import { getTriviaCategories } from '../services/triviaCategoryService';
 import { getDifficultyLevels } from '../services/difficultyLevelsService';
 import Quiz from '../components/Quiz';
 import { getQuestions } from '../services/quizQuestionsService';
-import { useQuiz } from '../context/QuizContext';
+import { useQuiz } from '../hooks/useQuiz';
 import { ShuffledQuestionType } from '../types/ShuffledQuestionsType';
 
 const shuffleArray = <T,>(array: T[]): T[] => [...array].sort(() => Math.random() - 0.5);
 
-const Home = () => {
+const Home = (): JSX.Element => {
   const { setQuestions } = useQuiz();
-  const [triviaCategories, setTriviaCategories] = useState<TriviaCategory[]>([]);
-  const [difficultyLevels, setDifficultyLevels] = useState<DifficultyLevel[]>([]);
-  const [selectedTriviaCategory, setSelectedTriviaCategory] = useState<TriviaCategory | null>(null);
-  const [selectedDifficultyLevel, setSelectedDifficultyLevel] = useState<DifficultyLevel | null>(
+  const [triviaCategories, setTriviaCategories] = useState<TriviaCategoryType[]>([]);
+  const [difficultyLevels, setDifficultyLevels] = useState<DifficultyLevelType[]>([]);
+  const [selectedTriviaCategory, setSelectedTriviaCategory] = useState<TriviaCategoryType | null>(
     null,
   );
+  const [selectedDifficultyLevel, setSelectedDifficultyLevel] =
+    useState<DifficultyLevelType | null>(null);
 
   const [showQuiz, setShowQuiz] = useState<boolean>(false);
 
@@ -36,19 +37,19 @@ const Home = () => {
     setDifficultyLevels(levels);
   }, []);
 
-  const handleTriviaCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTriviaCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const value: number = Number(event.target.value);
     const selectedValue = triviaCategories.find((c) => c.id === value);
     setSelectedTriviaCategory(selectedValue ?? null);
   };
 
-  const handleDifficultyLevelChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleDifficultyLevelChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const value: string = event.target.value;
     const selectedValue = difficultyLevels.find((c) => c.code === value);
     setSelectedDifficultyLevel(selectedValue ?? null);
   };
 
-  const handleCreateQuiz = () => {
+  const handleCreateQuiz = (): void => {
     if (selectedTriviaCategory && selectedDifficultyLevel) {
       // Charger les questions
       getQuestions(selectedTriviaCategory.id, selectedDifficultyLevel.code)
@@ -99,7 +100,8 @@ const Home = () => {
           <button
             id="createBtn"
             onClick={handleCreateQuiz}
-            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer"
+            disabled={selectedDifficultyLevel === null || selectedTriviaCategory === null}
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-400 disabled:cursor-not-allowed"
           >
             Create
           </button>

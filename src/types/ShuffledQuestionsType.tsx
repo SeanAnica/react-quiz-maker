@@ -1,6 +1,6 @@
-import { Question } from '../interfaces/Question';
+import { QuestionType } from './QuestionType';
 /**
  * Type ShuffledQuestionType qui vient ajouter la liste des réponses
  * qu'on pourra mélanger par la suite.
  */
-export type ShuffledQuestionType = Question & { allAnswers: string[] };
+export type ShuffledQuestionType = QuestionType & { allAnswers: string[] };

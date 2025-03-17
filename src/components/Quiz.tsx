@@ -1,9 +1,10 @@
-import { useQuiz } from '../context/QuizContext';
+import { JSX } from 'react';
+import { useQuiz } from '../hooks/useQuiz';
 import { ShuffledQuestionType } from '../types/ShuffledQuestionsType';
 import Question from './Question';
 import { useNavigate } from 'react-router';
 
-const Quiz = () => {
+const Quiz = (): JSX.Element => {
   const { questions, userAnswers, setUserAnswer } = useQuiz();
 
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Quiz = () => {
     setUserAnswer(questionIndex, answer);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     navigate('/quiz-result');
   };
 

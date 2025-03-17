@@ -1,7 +1,7 @@
-import { TriviaCategory } from '../interfaces/TriviaCategory';
+import { TriviaCategoryType } from '../types/TriviaCategoryType';
 
 export type TriviaCategories = {
-  trivia_categories: TriviaCategory[];
+  trivia_categories: TriviaCategoryType[];
 };
 
 const TRIVIA_CATEGORIES_API_URL = 'https://opentdb.com/api_category.php';
@@ -10,7 +10,7 @@ const TRIVIA_CATEGORIES_API_URL = 'https://opentdb.com/api_category.php';
  * Récupère la liste des triviaCategories de l'url donnée dans le sujet d'examen.
  * @returns La liste des trivia categories.
  */
-export const getTriviaCategories = async (): Promise<TriviaCategory[]> => {
+export const getTriviaCategories = async (): Promise<TriviaCategoryType[]> => {
   try {
     const apiResponse = await fetch(TRIVIA_CATEGORIES_API_URL);
     const categories: TriviaCategories = await apiResponse.json();

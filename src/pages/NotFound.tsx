@@ -1,3 +1,4 @@
+import { JSX } from 'react';
 import { Link } from 'react-router';
 
 export type NotFoundProps = {
@@ -8,7 +9,7 @@ export type NotFoundProps = {
 const NotFound = ({
   message = "Ho no ! This page doesn't exist !",
   title = '404',
-}: NotFoundProps) => {
+}: NotFoundProps): JSX.Element => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-6xl font-bold text-red-500">{title}</h1>

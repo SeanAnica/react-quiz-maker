@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 type QuestionProps = {
   question: string;
   answers: string[];
@@ -14,8 +16,8 @@ const Question = ({
   selectedAnswer,
   displayResults,
   correctAnswer,
-}: QuestionProps) => {
-  const readHtml = (html: string) => {
+}: QuestionProps): JSX.Element => {
+  const readHtml = (html: string): string => {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     return doc.documentElement.textContent || '';
   };
