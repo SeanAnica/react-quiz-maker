@@ -4,6 +4,7 @@ import NotFound from './NotFound';
 import { ShuffledQuestionType } from '../types/ShuffledQuestionsType';
 import { JSX } from 'react';
 import { useQuiz } from '../hooks/useQuiz';
+import QuizScore from '../components/QuizScore';
 
 const QuizResult = (): JSX.Element => {
   const { questions, userAnswers, resetQuiz } = useQuiz();
@@ -35,25 +36,7 @@ const QuizResult = (): JSX.Element => {
             />
           ))}
         </div>
-        <p
-          className={`text-2xl font-semibold text-gray-700 rounded-full px-2 ${
-            score <= 1 ? 'bg-red-300' : score <= 3 ? 'bg-yellow-300' : 'bg-green-300'
-          }`}
-        >
-          You scored&nbsp;
-          <span
-            className={`${score <= 1 ? 'text-red-600' : score <= 3 ? 'text-yellow-600' : 'text-green-600'}`}
-          >
-            {score}
-          </span>
-          &nbsp;out of&nbsp;
-          <span
-            className={`${score <= 1 ? 'text-red-600' : score <= 3 ? 'text-yellow-600' : 'text-green-600'}`}
-          >
-            {questions.length}
-          </span>
-        </p>
-
+        <QuizScore score={score} questionsQuantity={questions.length} />
         <Link
           to="/"
           onClick={resetQuiz}
