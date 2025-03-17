@@ -36,7 +36,7 @@ const Quiz = (): JSX.Element => {
       {allAnswered && (
         <button
           onClick={handleSubmit}
-          className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 cursor-pointer"
+          className="w-30 mt-6 px-6 py-3 self-center bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer"
         >
           Submit
         </button>
