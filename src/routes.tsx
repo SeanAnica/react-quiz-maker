@@ -18,7 +18,7 @@ const router = createBrowserRouter(
       Component: NotFound,
     },
   ],
-  { basename: '/react-quiz-maker' },
+  { basename: '/react-quiz-maker/' },
 );
 
 export default router;
