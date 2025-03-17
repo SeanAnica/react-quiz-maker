@@ -22,6 +22,16 @@ const Question = ({
     return doc.documentElement.textContent || '';
   };
 
+  const getAnswerClass = (answer: string): string => {
+    if (displayResults) {
+      if (answer === correctAnswer) return 'bg-green-500 text-white';
+      if (answer === selectedAnswer) return 'bg-red-500 text-white';
+      return 'bg-gray-200';
+    }
+
+    return selectedAnswer === answer ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300';
+  };
+
   return (
     <div className="mb-6">
       <h2 className="text-lg font-semibold">{readHtml(question)}</h2>
@@ -30,17 +40,7 @@ const Question = ({
           <li key={index} className="py-1">
             <button
               onClick={() => onAnswerSelect(answer)}
-              className={`py-2 px-4 rounded ${
-                displayResults
-                  ? answer === correctAnswer
-                    ? 'bg-green-500 text-white'
-                    : selectedAnswer === answer
-                      ? 'bg-red-500 text-white'
-                      : 'bg-gray-200'
-                  : selectedAnswer === answer
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-200 hover:bg-gray-300'
-              }`}
+              className={`py-2 px-4 rounded ${getAnswerClass(answer)}`}
               disabled={displayResults}
             >
               {readHtml(answer)}
